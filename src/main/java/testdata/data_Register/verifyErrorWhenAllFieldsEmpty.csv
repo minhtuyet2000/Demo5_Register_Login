@@ -1,0 +1,7 @@
+verifyErrorWhenAllFieldsEmpty
+Name không được bỏ trống
+Email không được bỏ trống
+Password không được bỏ trống
+PasswordConfirm không được bỏ trống
+Phone không được bỏ trống
+Birthday không được bỏ trống

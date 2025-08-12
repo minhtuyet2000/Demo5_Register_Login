@@ -1,0 +1,11 @@
+verifyNameErrorWithInvalidData
+uY ết
+minhtuyetminhtuyetminhtuyetminhtu
+1234
+𝔂𝓪𝓼𝓼 𝓺𝓾𝓮𝓮𝓷
+正在下雪
+😊
+John@Doe
+\u202E.gpj
+<script>alert('XSS')</script>
+'; DROP TABLE users; --
