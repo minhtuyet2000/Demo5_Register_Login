@@ -1,0 +1,12 @@
+<suite name = "Test Suite" parallel="classes" thread-count="2">
+    <listeners>
+        <listener class-name="scripts.listeners.UnifiedListener"/>
+    </listeners>
+    <test name = "Test chrome">
+        <parameter name = "browser" value="chrome"/>
+        <classes>
+            <class name ="scripts.RegisterTest"/>
+            <class name ="scripts.LoginTest"/>
+        </classes>
+    </test>
+</suite>
