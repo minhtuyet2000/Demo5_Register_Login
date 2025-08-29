@@ -93,7 +93,6 @@ public class LoginPage {
         WebUI.logConsole("Submit điều hướng đến trang login");
         setLogin(emailLogin,password);
         WebUI.sleep(1);
-        WebUI.clickElement(buttonLogin);
         WebUI.assertEquals(WebUI.getURL(),urlProfile,"Login điều hướng đến trang profile");
     }
     public void verifyValid(String email, String password, String urlProfile) {

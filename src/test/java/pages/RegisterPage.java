@@ -137,13 +137,18 @@ public class RegisterPage {
         String shot1 = WebUI.captureScreenshot();
         setRegister(name.repeat(1),emailLogin,password.repeat(1),"0850000000","19092000");
         WebUI.sleep(1);
-        WebUI.assertEquals(WebUI.getElementText(message,1),messageRepeatEmail,messageRepeatEmail);
+        if (WebUI.getWebElements(message).size() == 2) {
+            WebUI.assertEquals(WebUI.getElementText(message,1),messageRepeatEmail,messageRepeatEmail);
+        } else {
+            WebUI.assertEquals(WebUI.getElementText(message,0),messageRepeatEmail,messageRepeatEmail);
+        }
         test.log(Status.INFO, "📸 Message Repeat Email")
                 .addScreenCaptureFromPath(shot1,"Message Repeat Email");
     }
     public void verifyErrorEmpty() {
         WebUI.clearActualTexts();
         setRegister("","","","","");
+        WebUI.clickElement(buttonSubmit);
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
         WebUI.logConsole(">>>>> Kiểm Tra Số Lượng Hiển Thị <<<<<");
