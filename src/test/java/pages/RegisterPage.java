@@ -164,8 +164,7 @@ public class RegisterPage {
         WebUI.scrollToPosition(0,0);
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
-        WebUI.logConsole(">>>>> Kiểm Tra Số Lượng Hiển Thị <<<<<");
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < WebUI.getWebElements(messageError).size(); i++) {
             WebUI.assertDisplay(messageError,i);
         }
         List<String> expectedTexts = CSVReaderUtilForList.readCSVAsList("src/main/java/testdata/data_Register/verifyErrorWhenAllFieldsEmpty.csv");
@@ -178,8 +177,7 @@ public class RegisterPage {
         setRegister("        ","        ","        ","        ","        ");
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
-        WebUI.logConsole(">>>>> Kiểm Tra Số Lượng Hiển Thị <<<<<");
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < WebUI.getWebElements(messageError).size(); i++) {
             WebUI.assertDisplay(messageError,i);
         }
         List<String> expectedTexts = CSVReaderUtilForList.readCSVAsList("src/main/java/testdata/data_Register/verifyErrorWhenInputIsSpace.csv");
