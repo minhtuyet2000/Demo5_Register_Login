@@ -151,14 +151,14 @@ public class RegisterPage {
         WebUI.clearActualTexts();
         do {
             driver.get("https://demo5.cybersoft.edu.vn/register");
-            WebUI.getWebElement(inputName).clear();
-            WebUI.getWebElement(inputEmail).clear();
-            WebUI.getWebElement(inputPassword).clear();
-            WebUI.getWebElement(inputRepeatPassword).clear();
-            WebUI.getWebElement(inputPhone).clear();
-            WebUI.getWebElement(inputBirthday).clear();
             WebUI.clickElement(radioFemale);
             WebUI.clickElement(buttonAgree);
+            WebUI.setText(inputName,"");
+            WebUI.setText(inputEmail,"");
+            WebUI.setText(inputPassword,"");
+            WebUI.setText(inputRepeatPassword,"");
+            WebUI.setText(inputPhone,"");
+            WebUI.setText(inputBirthday,"");
         } while (!driver.getCurrentUrl().equals("https://demo5.cybersoft.edu.vn/register"));
         WebUI.clickElement(buttonSubmit);
         WebUI.scrollToPosition(0,0);
