@@ -111,11 +111,13 @@ public class RegisterPage {
         setRegister(longText,longText,longText,longText,longText);
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"text","Password hiển thị");
         WebUI.assertEquals(WebUI.getAttributeText(inputRepeatPassword,"type"),"text","RepeatPassword hiển thị");
+        WebUI.scrollToPosition(0,0);
         WebUI.clickElement(eyePassword);
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"password","Password được ẩn đi");
         WebUI.assertEquals(WebUI.getAttributeText(inputRepeatPassword,"type"),"password","RepeatPassword được ẩn đi");
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
+        WebUI.scrollToPosition(0,0);
         WebUI.clickElement(radioMale);
         String shot2 = WebUI.captureScreenshot();
         test.log(Status.INFO, "📸 Radio Male or Female")
@@ -147,16 +149,19 @@ public class RegisterPage {
     }
     public void verifyErrorEmpty() {
         WebUI.clearActualTexts();
-        driver.get("https://demo5.cybersoft.edu.vn/register");
-        WebUI.setText(inputName,"");
-        WebUI.setText(inputEmail,"");
-        WebUI.setText(inputPassword,"");
-        WebUI.setText(inputRepeatPassword,"");
-        WebUI.setText(inputPhone,"");
-        WebUI.setText(inputBirthday,"");
-        WebUI.clickElement(radioFemale);
-        WebUI.clickElement(buttonAgree);
+        do {
+            driver.get("https://demo5.cybersoft.edu.vn/register");
+            WebUI.getWebElement(inputName).clear();
+            WebUI.getWebElement(inputEmail).clear();
+            WebUI.getWebElement(inputPassword).clear();
+            WebUI.getWebElement(inputRepeatPassword).clear();
+            WebUI.getWebElement(inputPhone).clear();
+            WebUI.getWebElement(inputBirthday).clear();
+            WebUI.clickElement(radioFemale);
+            WebUI.clickElement(buttonAgree);
+        } while (!driver.getCurrentUrl().equals("https://demo5.cybersoft.edu.vn/register"));
         WebUI.clickElement(buttonSubmit);
+        WebUI.scrollToPosition(0,0);
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
         WebUI.logConsole(">>>>> Kiểm Tra Số Lượng Hiển Thị <<<<<");

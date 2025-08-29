@@ -125,7 +125,7 @@ public class LoginTest extends BaseTest {
         return data;
     }
     @Test(priority = 13,dataProvider = "randomInvalidLogin",
-            description = "Kiểm tra đăng nhập that bai với email và password không hợp lệ", groups = {"LoginTest"})
+            description = "Kiểm tra đăng nhập thất bại với email và password không hợp lệ", groups = {"LoginTest"})
     public void testInvalidLogin(String email, String password) {
         loginPage = new LoginPage(DriverManager.getDriver());
         loginPage.verifyInvalid(email,password,
