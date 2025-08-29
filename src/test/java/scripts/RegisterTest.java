@@ -9,21 +9,21 @@ import scripts.utils.CSVReaderUtil;
 
 public class RegisterTest extends BaseTest {
     private RegisterPage registerPage;
-    @Test(priority = 1, description = "Kiểm tra hiển thị trang đăng kí", groups = {"RegisterTest"})
+    @Test(priority = 1, description = "Kiểm tra hiển thị trang đăng ký", groups = {"RegisterTest"})
     public void testDisplayRegister() {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.displayRegister();
         WebUI.assertAll();
     }
 
-    @Test(priority = 2, description = "Kiểm tra tương tác trang đăng kí", groups = {"RegisterTest"})
+    @Test(priority = 2, description = "Kiểm tra tương tác trang đăng ký", groups = {"RegisterTest"})
     public void testInteractRegister() {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.interactRegister();
         WebUI.assertAll();
     }
 
-    @Test(priority = 3, description = "Kiểm tra đăng kí thành công với dữ liệu hợp lệ", groups = {"RegisterTest"})
+    @Test(priority = 3, description = "Kiểm tra đăng ký thành công với dữ liệu hợp lệ", groups = {"RegisterTest"})
     public void testMessageSuccess() {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyMessageSuccess("Minh Tuyet","Minh084@","0840000000","19082000",
@@ -31,7 +31,7 @@ public class RegisterTest extends BaseTest {
         WebUI.assertAll();
     }
 
-    @Test(priority = 4, description = "Kiểm tra đăng kí thất bại khi email trùng lặp", groups = {"RegisterTest"})
+    @Test(priority = 4, description = "Kiểm tra đăng ký thất bại khi email trùng lặp", groups = {"RegisterTest"})
     public void testRepeatEmail() {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyRepeatEmail("Minh Tuyet","Minh084@","0840000000","19082000",
@@ -39,14 +39,14 @@ public class RegisterTest extends BaseTest {
         WebUI.assertAll();
     }
 
-    @Test(priority = 5, description = "Kiểm tra đăng kí hiển thị thông báo lỗi khi bỏ trống", groups = {"RegisterTest"})
+    @Test(priority = 5, description = "Kiểm tra đăng ký hiển thị thông báo lỗi khi bỏ trống", groups = {"RegisterTest"})
     public void testErrorEmpty() {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyErrorEmpty();
         WebUI.assertAll();
     }
 
-    @Test(priority = 6, description = "Kiểm tra đăng kí hiển thị ToolTip khi bỏ trống dữ liệu", groups = {"RegisterTest"})
+    @Test(priority = 6, description = "Kiểm tra đăng ký hiển thị ToolTip khi bỏ trống dữ liệu", groups = {"RegisterTest"})
     public void testToolTip() {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyToolTip("Minh Tuyet","minh0842@gmail.com","Minh084@",
@@ -54,7 +54,7 @@ public class RegisterTest extends BaseTest {
         WebUI.assertAll();
     }
 
-    @Test(priority = 7, description = "Kiểm tra đăng kí hiển thị thông báo lỗi khi nhập dấu cách vào trường", groups = {"RegisterTest"})
+    @Test(priority = 7, description = "Kiểm tra đăng ký hiển thị thông báo lỗi khi nhập dấu cách vào trường", groups = {"RegisterTest"})
     public void testErrorSpace() {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyErrorSpace();
@@ -66,7 +66,7 @@ public class RegisterTest extends BaseTest {
         return CSVReaderUtil.readCSV("src/main/java/testdata/data_Register/verifyRepeatPassword");
     }
     @Test(priority = 8,dataProvider = "csvRepeatPassword",
-            description = "Kiểm tra đăng kí hiển thị thông báo lỗi khi password không trùng nhau", groups = {"RegisterTest"})
+            description = "Kiểm tra đăng ký hiển thị thông báo lỗi khi password không trùng nhau", groups = {"RegisterTest"})
     public void testRepeatPassword(String pass,String repeatpass) {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyRepeatPassword("Minh Tuyet","minh0842@gmail.com","0840000000",
@@ -74,7 +74,7 @@ public class RegisterTest extends BaseTest {
         WebUI.assertAll();
     }
 
-    @Test(priority = 9, description = "Kiểm tra đăng kí thành công với trường name hợp lệ", groups = {"RegisterTest"})
+    @Test(priority = 9, description = "Kiểm tra đăng ký thành công với trường name hợp lệ", groups = {"RegisterTest"})
     public void testValidName() {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyValid("Minh Tuyế't","Minh084@",
@@ -87,7 +87,7 @@ public class RegisterTest extends BaseTest {
         return CSVReaderUtil.readCSV("src/main/java/testdata/data_Register/verifyValidEmail");
     }
     @Test(priority = 10,dataProvider = "csvValidEmail",
-            description = "Kiểm tra đăng kí thành công với trường email hợp lệ", groups = {"RegisterTest"})
+            description = "Kiểm tra đăng ký thành công với trường email hợp lệ", groups = {"RegisterTest"})
     public void testValidEmail(String email) {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyValidEmail("Minh Tuyet",email,"Minh084@","0840000000","19082000",
@@ -95,7 +95,7 @@ public class RegisterTest extends BaseTest {
         WebUI.assertAll();
     }
 
-    @Test(priority = 11, description = "Kiểm tra đăng kí thành công với trường password hợp lệ", groups = {"RegisterTest"})
+    @Test(priority = 11, description = "Kiểm tra đăng ký thành công với trường password hợp lệ", groups = {"RegisterTest"})
     public void testValidPassword() {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyValid("Minh Tuyet","Tu ế[8,@𝔂𝓪𝓼𝓼正😊",
@@ -108,7 +108,7 @@ public class RegisterTest extends BaseTest {
         return CSVReaderUtil.readCSV("src/main/java/testdata/data_Register/verifyValidPhone.csv");
     }
     @Test(priority = 12,dataProvider = "csvValidPhone",
-            description = "Kiểm tra đăng kí thành công với trường phone hợp lệ", groups = {"RegisterTest"})
+            description = "Kiểm tra đăng ký thành công với trường phone hợp lệ", groups = {"RegisterTest"})
     public void testValidPhone(String phone) {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyValid("Minh Tuyet","Minh084@",
