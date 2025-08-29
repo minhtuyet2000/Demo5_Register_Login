@@ -147,6 +147,7 @@ public class RegisterPage {
     }
     public void verifyErrorEmpty() {
         WebUI.clearActualTexts();
+        driver.get("https://demo5.cybersoft.edu.vn/register");
         WebUI.setText(inputName,"");
         WebUI.setText(inputEmail,"");
         WebUI.setText(inputPassword,"");
