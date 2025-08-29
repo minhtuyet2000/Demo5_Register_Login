@@ -133,9 +133,9 @@ public class RegisterPage {
     }
     public void verifyRepeatEmail(String name, String password, String phone, String birthday, String urlLogin, String messageRepeatEmail) {
         String emailLogin = setEmail(name, password, phone, birthday);
+        setRegister(name.repeat(1),emailLogin,password.repeat(1),"0850000000","19092000");
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
-        setRegister(name.repeat(1),emailLogin,password.repeat(1),"0850000000","19092000");
         WebUI.sleep(1);
         if (WebUI.getWebElements(message).size() == 2) {
             WebUI.assertEquals(WebUI.getElementText(message,1),messageRepeatEmail,messageRepeatEmail);
@@ -147,7 +147,14 @@ public class RegisterPage {
     }
     public void verifyErrorEmpty() {
         WebUI.clearActualTexts();
-        setRegister("","","","","");
+        WebUI.setText(inputName,"");
+        WebUI.setText(inputEmail,"");
+        WebUI.setText(inputPassword,"");
+        WebUI.setText(inputRepeatPassword,"");
+        WebUI.setText(inputPhone,"");
+        WebUI.setText(inputBirthday,"");
+        WebUI.clickElement(radioFemale);
+        WebUI.clickElement(buttonAgree);
         WebUI.clickElement(buttonSubmit);
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();

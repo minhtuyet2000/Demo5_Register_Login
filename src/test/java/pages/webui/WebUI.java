@@ -27,7 +27,7 @@ public class WebUI {
         softAssert.remove();
     }
 
-    private static int TIMEOUT = 2;
+    private static int TIMEOUT = 5;
     private static double STEP_TIME = 0;
     private static int PAGE_LOAD_TIMEOUT = 10;
     static Logger logger = LogManager.getLogger(WebUI.class);
