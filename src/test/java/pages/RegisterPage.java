@@ -243,16 +243,18 @@ public class RegisterPage {
                 .addScreenCaptureFromPath(shot7,"Agree");
     }
     public void verifyRepeatPassword(String name, String email, String phone, String birthday, String pass, String repeatpass, String error) {
-        WebUI.openURL("https://demo5.cybersoft.edu.vn/register");
-        WebUI.setText(inputName,name);
-        WebUI.setText(inputEmail,email);
-        WebUI.setText(inputPassword,pass);
-        WebUI.setText(inputRepeatPassword,repeatpass);
-        WebUI.clickElement(eyePassword);
-        WebUI.setText(inputPhone,phone);
-        WebUI.setText(inputBirthday,birthday);
-        WebUI.clickElement(radioFemale);
-        WebUI.clickElement(buttonAgree);
+        do {
+            driver.get("https://demo5.cybersoft.edu.vn/register");
+            WebUI.setText(inputName,name);
+            WebUI.setText(inputEmail,email);
+            WebUI.setText(inputPassword,pass);
+            WebUI.setText(inputRepeatPassword,repeatpass);
+            WebUI.clickElement(eyePassword);
+            WebUI.setText(inputPhone,phone);
+            WebUI.setText(inputBirthday,birthday);
+            WebUI.clickElement(radioFemale);
+            WebUI.clickElement(buttonAgree);
+        } while (!driver.getCurrentUrl().equals("https://demo5.cybersoft.edu.vn/register"));
         WebUI.clickElement(buttonSubmit);
         WebUI.assertEquals(WebUI.getElementText(messageError),error,error);
     }
