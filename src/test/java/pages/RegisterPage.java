@@ -280,7 +280,7 @@ public class RegisterPage {
         } else {
             WebUI.assertEquals(WebUI.getElementText(messageError),error,error);
         }
-        test.log(Status.INFO, "📸 Verify Error")
-                .addScreenCaptureFromPath(shot1,"Verify Error");
+        test.log(Status.INFO, "📸 Verify InValid")
+                .addScreenCaptureFromPath(shot1,"Verify InValid");
     }
 }

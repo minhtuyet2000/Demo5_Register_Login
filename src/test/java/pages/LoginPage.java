@@ -145,7 +145,7 @@ public class LoginPage {
         } else if (errorEmail.equals("Email hoặc mật khẩu không đúng !") && errorPassword.equals("Email hoặc mật khẩu không đúng !")) {
             WebUI.assertEquals(WebUI.getElementText(message), errorPassword, errorPassword);
         }
-        test.log(Status.INFO, "📸 Verify Error")
-                .addScreenCaptureFromPath(shot1,"Verify Error");
+        test.log(Status.INFO, "📸 Verify InValid")
+                .addScreenCaptureFromPath(shot1,"Verify InValid");
     }
 }
