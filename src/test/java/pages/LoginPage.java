@@ -58,8 +58,8 @@ public class LoginPage {
         String shot1 = WebUI.captureScreenshot();
         List<String> expectedTexts = CSVReaderUtilForList.readCSVAsList("src/main/java/testdata/data_Login/dataTextLogin.csv");
         WebUI.compareActualText(expectedTexts);
-        test.log(Status.INFO, "📸 Display Icon")
-                .addScreenCaptureFromPath(shot1,"Display Icon");
+        test.log(Status.INFO, "📸 Display The LoginPage")
+                .addScreenCaptureFromPath(shot1,"Display The LoginPage");
     }
     public void interactLogin() {
         WebUI.openURL("https://demo5.cybersoft.edu.vn/login");
@@ -67,13 +67,9 @@ public class LoginPage {
         WebUI.assertEquals(WebUI.getURL(),"https://demo5.cybersoft.edu.vn/register","Register now ? có sự điều hướng");
         String longText = "A".repeat(100);
         setLogin(longText,longText);
-        ExtentTest test = ExtentTestManager.getTest();
-        String shot1 = WebUI.captureScreenshot();
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"text","Password hiển thị");
         WebUI.clickElement(eyePassword);
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"password","Password được ẩn đi");
-        test.log(Status.INFO, "📸 Interact Login")
-                .addScreenCaptureFromPath(shot1,"Interact Login");
     }
     public void verifyByEnterKey(String email, String password, String messageLogin, String urlProfile) {
         WebUI.openURL("https://demo5.cybersoft.edu.vn/login");

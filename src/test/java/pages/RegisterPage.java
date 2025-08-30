@@ -97,8 +97,8 @@ public class RegisterPage {
         String shot1 = WebUI.captureScreenshot();
         List<String> expectedTexts = CSVReaderUtilForList.readCSVAsList("src/main/java/testdata/data_Register/dataTextRegister.csv");
         WebUI.compareActualText(expectedTexts);
-        test.log(Status.INFO, "📸 Display Icon")
-                .addScreenCaptureFromPath(shot1,"Display Icon");
+        test.log(Status.INFO, "📸 Display The RegisterPage")
+                .addScreenCaptureFromPath(shot1,"Display The RegisterPage");
     }
     public void interactRegister() {
         WebUI.openURL("https://demo5.cybersoft.edu.vn/register");
@@ -121,8 +121,8 @@ public class RegisterPage {
         WebUI.clickElement(radioMale);
         String shot2 = WebUI.captureScreenshot();
         test.log(Status.INFO, "📸 Radio Male or Female")
-                .addScreenCaptureFromPath(shot1,"Female is selected – Male is not selected")
-                .addScreenCaptureFromPath(shot2,"Male is selected – Female is not selected");
+                .addScreenCaptureFromPath(shot1,"Verify Female is selected – Male is not selected")
+                .addScreenCaptureFromPath(shot2,"Verify Male is selected – Female is not selected");
     }
     public void verifyMessageSuccess(String name, String password, String phone, String birthday,String messageSuccess, String urlLogin) {
         setEmail(name, password, phone, birthday);
