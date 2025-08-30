@@ -271,7 +271,7 @@ public class WebUI {
             js.executeScript("arguments[0].scrollIntoView(true);", element);
                 if (element != null && element.isDisplayed()) {
                     if (element.getText().equals("")) {
-                        logConsole("❌ Assert Failed. Element - " + by + " co gia tri rong");
+                        logConsole("❌ Assert Failed. Element - " + by + " có giá trị rỗng");
                         addActualText("");
                     } else {
                         actual = true;
@@ -279,11 +279,11 @@ public class WebUI {
                         addActualText(element.getText().trim());
                     }
                 } else {
-                    logConsole("❌ Assert Failed. Element - " + by + ".get(" + index + ") khong hien thi");
+                    logConsole("❌ Assert Failed. Element - " + by + ".get(" + index + ") không hiển thị");
                     addActualText("");
                 }
         } catch (Exception e) {
-            logConsole("❌ Assert Failed. Element - " + by + ".get(" + index + ") khong ton tai");
+            logConsole("❌ Assert Failed. Element - " + by + ".get(" + index + ") không tồn tại");
             addActualText("");
         }
         softAssert.get().assertTrue(actual);
@@ -298,7 +298,7 @@ public class WebUI {
             js.executeScript("arguments[0].scrollIntoView(true);", element);
                 if (element != null && element.isDisplayed()) {
                     if (element.getText().equals("")) {
-                        logConsole("❌ Assert Failed. Element - " + by + " co gia tri rong");
+                        logConsole("❌ Assert Failed. Element - " + by + " có giá trị rỗng");
                         addActualText("");
                     } else {
                         actual = true;
@@ -306,11 +306,11 @@ public class WebUI {
                         addActualText(element.getText().trim());
                     }
                 } else {
-                    logConsole("❌ Assert Failed. Element - " + by + " khong hien thi");
+                    logConsole("❌ Assert Failed. Element - " + by + " không hiển thị");
                     addActualText("");
                 }
         } catch (Exception e) {
-            logConsole("❌ Assert Failed. Element - " + by + " khong ton tai");
+            logConsole("❌ Assert Failed. Element - " + by + " không tồn tại");
             addActualText("");
         }
         softAssert.get().assertTrue(actual);
@@ -325,7 +325,7 @@ public class WebUI {
             js.executeScript("arguments[0].scrollIntoView(true);", element);
             if (element != null && element.isDisplayed()) {
                 if (element.getAttribute(attribute).equals("")) {
-                    logConsole("❌ Assert Failed. Element - " + by + " co gia tri rong");
+                    logConsole("❌ Assert Failed. Element - " + by + " có giá trị rỗng");
                     addActualText("");
                 } else {
                     actual = true;
@@ -333,11 +333,11 @@ public class WebUI {
                     addActualText(element.getAttribute(attribute).trim());
                 }
             } else {
-                logConsole("❌ Assert Failed. Element - " + by + " khong hien thi");
+                logConsole("❌ Assert Failed. Element - " + by + " không hiển thị");
                 addActualText("");
             }
         } catch (Exception e) {
-            logConsole("❌ Assert Failed. Element - " + by + " khong ton tai");
+            logConsole("❌ Assert Failed. Element - " + by + " không tồn tại");
             addActualText("");
         }
         softAssert.get().assertTrue(actual);
