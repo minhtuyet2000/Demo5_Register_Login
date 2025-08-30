@@ -35,13 +35,6 @@ public class WebUI {
         logger.info(message);
         ExtentTestManager.log(Status.INFO, message);
     }
-    public static void logWarning(String message) {
-        if (message.length() > 300) {
-            message = message.substring(0, 300) + "...";
-        }
-        logger.error("❌ Lý do: " + message);
-        ExtentTestManager.log(Status.WARNING, "❌ Lý do: " + message);
-    }
     public static void sleep(double second) {
         try {
             Thread.sleep((long) (1000 * second));
@@ -85,7 +78,11 @@ public class WebUI {
         try {
             return DriverManager.getDriver().findElement(by);
         } catch (Throwable error) {
-            logWarning(error.getMessage());
+            String message = error.getMessage();
+            if (message.length() > 300) {
+                message = message.substring(0, 300) + "...";
+            }
+            logConsole("❌ Lý do: " + message);
             return null;
         }
     }
@@ -120,7 +117,11 @@ public class WebUI {
                 element.sendKeys("tester");
             } catch (Exception ejs) {
                 logConsole("❌ Không thể set text. Element - " + by);
-                logWarning(ejs.getMessage());
+                String message = ejs.getMessage();
+                if (message.length() > 300) {
+                    message = message.substring(0, 300) + "...";
+                }
+                logConsole("❌ Lý do: " + message);
 
             }
         }
@@ -149,7 +150,11 @@ public class WebUI {
                     js.executeScript("arguments[0].click();", element);
                 } catch (Exception ejs) {
                     logConsole("❌ Không thể click. Element - " + by);
-                    logWarning(ejs.getMessage());
+                    String message = ejs.getMessage();
+                    if (message.length() > 300) {
+                        message = message.substring(0, 300) + "...";
+                    }
+                    logConsole("❌ Lý do: " + message);
                 }
             }
         }
@@ -211,7 +216,11 @@ public class WebUI {
             softAssert.get().assertTrue(assertEquals);
         } catch (Exception e) {
             logConsole("❌ Assert Failed - Message Pass: " + messagePass);
-            logWarning(e.getMessage());
+            String message = e.getMessage();
+            if (message.length() > 300) {
+                message = message.substring(0, 300) + "...";
+            }
+            logConsole("❌ Lý do: " + message);
         }
     }
     public static void assertNotEquals(String actual, String notEquals, String messagePass) {
@@ -225,7 +234,11 @@ public class WebUI {
             softAssert.get().assertFalse(assertEquals);
         } catch (Exception e) {
             logConsole("❌ Assert Failed - Message Pass: " + messagePass);
-            logWarning(e.getMessage());
+            String message = e.getMessage();
+            if (message.length() > 300) {
+                message = message.substring(0, 300) + "...";
+            }
+            logConsole("❌ Lý do: " + message);
         }
     }
     public static void compareTwoLists(List<String> listA, List<String> listB) {
