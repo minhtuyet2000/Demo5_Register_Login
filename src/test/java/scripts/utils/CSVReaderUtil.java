@@ -19,7 +19,7 @@ public class CSVReaderUtil {
                     firstLine = false;
                     continue;
                 }
-                users.add(line); // hỗ trợ linh hoạt mọi số cột
+                users.add(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -31,7 +31,7 @@ public class CSVReaderUtil {
     public static Object[] getRandomFromCSV(String filePath) {
         Object[][] allData = readCSV(filePath);
         if (allData.length == 0) {
-            return new Object[]{}; // hoặc return null tùy bạn xử lý
+            return new Object[]{}; 
         }
         Random random = new Random();
         return allData[random.nextInt(allData.length)];
