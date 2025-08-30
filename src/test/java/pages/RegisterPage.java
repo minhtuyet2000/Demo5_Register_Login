@@ -147,6 +147,7 @@ public class RegisterPage {
                 .addScreenCaptureFromPath(shot1,"Message Repeat Email");
     }
     public void verifyErrorEmpty() {
+        setRegister("        ","        ","        ","        ","        ");
         do {
             driver.get("https://demo5.cybersoft.edu.vn/register");
             WebUI.clickElement(radioFemale);
