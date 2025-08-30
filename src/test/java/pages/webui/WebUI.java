@@ -35,6 +35,13 @@ public class WebUI {
         logger.info(message);
         ExtentTestManager.log(Status.INFO, message);
     }
+    public static void logWarning(String message) {
+        if (message.length() > 300) {
+            message = message.substring(0, 300) + "...";
+        }
+        logger.error("❌ Lý do: " + message);
+        ExtentTestManager.log(Status.WARNING, "❌ Lý do: " + message);
+    }
     public static void sleep(double second) {
         try {
             Thread.sleep((long) (1000 * second));
@@ -78,11 +85,7 @@ public class WebUI {
         try {
             return DriverManager.getDriver().findElement(by);
         } catch (Throwable error) {
-            String log = error.getMessage();
-            if (log.length() > 300) {
-                log = log.substring(0, 300) + "...";
-            }
-            logConsole("❌ Lý do: " + log);
+            logWarning(error.getMessage());
             return null;
         }
     }
@@ -117,11 +120,7 @@ public class WebUI {
                 element.sendKeys("tester");
             } catch (Exception ejs) {
                 logConsole("❌ Không thể set text. Element - " + by);
-                String log = ejs.getMessage();
-                if (log.length() > 300) {
-                    log = log.substring(0, 300) + "...";
-                }
-                logConsole("❌ Lý do: " + log);
+                logWarning(ejs.getMessage());
 
             }
         }
@@ -150,11 +149,7 @@ public class WebUI {
                     js.executeScript("arguments[0].click();", element);
                 } catch (Exception ejs) {
                     logConsole("❌ Không thể click. Element - " + by);
-                    String log = ejs.getMessage();
-                    if (log.length() > 300) {
-                        log = log.substring(0, 300) + "...";
-                    }
-                    logConsole("❌ Lý do: " + log);
+                    logWarning(ejs.getMessage());
                 }
             }
         }
@@ -216,7 +211,7 @@ public class WebUI {
             softAssert.get().assertTrue(assertEquals);
         } catch (Exception e) {
             logConsole("❌ Assert Failed - Message Pass: " + messagePass);
-            logConsole("Lý do: " + e.getMessage());
+            logWarning(e.getMessage());
         }
     }
     public static void assertNotEquals(String actual, String notEquals, String messagePass) {
@@ -230,7 +225,7 @@ public class WebUI {
             softAssert.get().assertFalse(assertEquals);
         } catch (Exception e) {
             logConsole("❌ Assert Failed - Message Pass: " + messagePass);
-            logConsole("Lý do: " + e.getMessage());
+            logWarning(e.getMessage());
         }
     }
     public static void compareTwoLists(List<String> listA, List<String> listB) {
@@ -271,7 +266,6 @@ public class WebUI {
                         addActualText(element.getText().trim());
                     }
                 } else {
-                    //chap nhan loi isDisplayed va thuc thi catch
                     logConsole("❌ Assert Failed. Element - " + by + ".get(" + index + ") khong hien thi");
                     addActualText("");
                 }
@@ -341,7 +335,8 @@ public class WebUI {
             sleep(1);
             File srcFile = ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.FILE);
             String timestamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
-            String fileName = getCurrentTestMethodName() + "_" + timestamp + ".png";
+            String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+            String fileName = methodName + "_" + timestamp + ".png";
             String fullPath = "reports/screenshots/" + fileName;
             File destFile = new File(fullPath);
             destFile.getParentFile().mkdirs();
@@ -351,14 +346,5 @@ public class WebUI {
             e.printStackTrace();
             return null;
         }
-    }
-    public static String getCurrentTestMethodName() {
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        for (StackTraceElement element : stackTrace) {
-            if (element.getMethodName().startsWith("test")) {
-                return element.getMethodName();
-            }
-        }
-        return "unknownMethod";
     }
 }
