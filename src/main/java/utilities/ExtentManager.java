@@ -20,8 +20,8 @@ public class ExtentManager {
         reporter.config().setTheme(com.aventstack.extentreports.reporter.configuration.Theme.STANDARD);
         extent = new ExtentReports();
         extent.attachReporter(reporter);
-        extent.setSystemInfo("Tester", "minh tuyet");
-        extent.setSystemInfo("Environment", "Production");
+        extent.setSystemInfo("Tester", "Minh Tuyet");
+        extent.setSystemInfo("Environment", "Staging");
         return extent;
     }
 }
