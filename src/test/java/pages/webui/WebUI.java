@@ -76,6 +76,9 @@ public class WebUI {
     }
     public static WebElement getWebElement(By by) {
         try {
+            waitForPageLoaded();
+            waitForElementVisible(by);
+            sleep(STEP_TIME);
             return DriverManager.getDriver().findElement(by);
         } catch (Throwable error) {
             String message = error.getMessage();
@@ -87,6 +90,9 @@ public class WebUI {
         }
     }
     public static List<WebElement> getWebElements(By by) {
+        waitForPageLoaded();
+        waitForElementVisible(by);
+        sleep(STEP_TIME);
         return DriverManager.getDriver().findElements(by);
     }
     public static void openURL(String url) {
@@ -96,9 +102,6 @@ public class WebUI {
         logConsole("Mở URL: " + url);
     }
     public static void setText(By by, String value) {
-        waitForPageLoaded();
-        waitForElementVisible(by);
-        sleep(STEP_TIME);
         WebElement element = getWebElement(by);
         if (element == null) {
             return;
@@ -127,9 +130,6 @@ public class WebUI {
         }
     }
     public static void clickElement(By by) {
-        waitForPageLoaded();
-        waitForElementVisible(by);
-        sleep(STEP_TIME);
         WebElement element = getWebElement(by);
         if (element == null) {
             return;
@@ -160,9 +160,6 @@ public class WebUI {
         }
     }
     public static String getElementText(By by, int index) {
-        waitForPageLoaded();
-        waitForElementVisible(by);
-        sleep(STEP_TIME);
         List<WebElement> elements = getWebElements(by);
         if (index < 0 || index >= elements.size()) {
             logConsole("❌ Không tìm thấy element -" + " " + by + ".get(" + index + ")");
@@ -172,9 +169,6 @@ public class WebUI {
         return element.getText().trim();
     }
     public static String getElementText(By by) {
-        waitForPageLoaded();
-        waitForElementVisible(by);
-        sleep(STEP_TIME);
         WebElement element = getWebElement(by);
         if (element == null) {
             return "";
@@ -183,9 +177,6 @@ public class WebUI {
         }
     }
     public static String getAttributeText(By by, String attribute) {
-        waitForPageLoaded();
-        waitForElementVisible(by);
-        sleep(STEP_TIME);
         WebElement element = getWebElement(by);
         if (element == null) {
             return "";
@@ -264,8 +255,6 @@ public class WebUI {
     public static void assertDisplay(By by, int index) {
         boolean actual = false;
         try {
-            waitForPageLoaded();
-            sleep(1);
             WebElement element = getWebElements(by).get(index);
             JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
             js.executeScript("arguments[0].scrollIntoView(true);", element);
@@ -291,8 +280,6 @@ public class WebUI {
     public static void assertDisplay(By by) {
         boolean actual = false;
         try {
-            waitForPageLoaded();
-            sleep(1);
             WebElement element = getWebElement(by);
             JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
             js.executeScript("arguments[0].scrollIntoView(true);", element);
@@ -318,8 +305,6 @@ public class WebUI {
     public static void assertDisplayForAttribute(By by, String attribute) {
         boolean actual = false;
         try {
-            waitForPageLoaded();
-            sleep(1);
             WebElement element = getWebElement(by);
             JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
             js.executeScript("arguments[0].scrollIntoView(true);", element);
