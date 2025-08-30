@@ -43,7 +43,6 @@ public class LoginPage {
         WebUI.scrollToPosition(0,0);
     }
     public void displayLogin() {
-        WebUI.clearActualTexts();
         WebUI.openURL("https://demo5.cybersoft.edu.vn/");
         WebUI.scrollToPosition(0,500);
         WebUI.clickElement(buttonSignIn);
@@ -96,7 +95,6 @@ public class LoginPage {
         WebUI.assertEquals(WebUI.getURL(),urlProfile,"Login điều hướng đến trang profile");
     }
     public void verifyErrorEmpty() {
-        WebUI.clearActualTexts();
         setLogin("","");
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
@@ -109,7 +107,6 @@ public class LoginPage {
                 .addScreenCaptureFromPath(shot1,"Verify Error When All Fields Empty");
     }
     public void verifyToolTip() {
-        WebUI.clearActualTexts();
         WebUI.openURL("https://demo5.cybersoft.edu.vn/login");
         WebUI.setText(inputPassword," Tyt @12 ");
         WebUI.clickElement(buttonLogin);

@@ -72,7 +72,6 @@ public class RegisterPage {
         return email;
     }
     public void displayRegister() {
-        WebUI.clearActualTexts();
         WebUI.openURL("https://demo5.cybersoft.edu.vn/");
         WebUI.scrollToPosition(0,500);
         WebUI.clickElement(buttonJoin);
@@ -148,7 +147,6 @@ public class RegisterPage {
                 .addScreenCaptureFromPath(shot1,"Message Repeat Email");
     }
     public void verifyErrorEmpty() {
-        WebUI.clearActualTexts();
         do {
             driver.get("https://demo5.cybersoft.edu.vn/register");
             WebUI.clickElement(radioFemale);
@@ -173,7 +171,6 @@ public class RegisterPage {
                 .addScreenCaptureFromPath(shot1,"Verify Error When All Fields Empty");
     }
     public void verifyErrorSpace() {
-        WebUI.clearActualTexts();
         setRegister("        ","        ","        ","        ","        ");
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
@@ -186,7 +183,6 @@ public class RegisterPage {
                 .addScreenCaptureFromPath(shot1,"Verify Error When Input Is Space");
     }
     public void verifyToolTip(String name, String email, String password, String phone, String birthday) {
-        WebUI.clearActualTexts();
         WebUI.openURL("https://demo5.cybersoft.edu.vn/register");
         WebUI.setText(inputEmail,email);
         WebUI.setText(inputPassword,password);

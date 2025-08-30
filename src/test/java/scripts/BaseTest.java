@@ -18,6 +18,7 @@ public class BaseTest {
     public void setUp(String browser) {
         WebDriver driverInstance = createDriver(browser);
         DriverManager.setDriver(driverInstance);
+        WebUI.clearActualTexts();
         WebUI.resetSoftAssert();
     }
 
