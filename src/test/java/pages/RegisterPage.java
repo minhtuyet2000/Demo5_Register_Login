@@ -92,6 +92,7 @@ public class RegisterPage {
         WebUI.assertDisplay(buttonSubmit);
         WebUI.assertDisplay(buttonLogin);
         WebUI.assertDisplayForAttribute(pngRegister,"src");
+        WebUI.scrollToPosition(0,0);
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
         List<String> expectedTexts = CSVReaderUtilForList.readCSVAsList("src/main/java/testdata/data_Register/dataTextRegister.csv");

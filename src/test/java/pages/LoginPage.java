@@ -53,6 +53,7 @@ public class LoginPage {
         WebUI.assertDisplay(buttonLogin);
         WebUI.assertDisplay(buttonRegister);
         WebUI.assertDisplayForAttribute(pngLogin,"src");
+        WebUI.scrollToPosition(0,0);
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
         List<String> expectedTexts = CSVReaderUtilForList.readCSVAsList("src/main/java/testdata/data_Login/dataTextLogin.csv");
