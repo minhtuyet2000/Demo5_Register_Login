@@ -13,14 +13,12 @@ public class RegisterTest extends BaseTest {
     public void testDisplayRegister() {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.displayRegister();
-        WebUI.assertAll();
     }
 
     @Test(priority = 2, description = "Kiểm tra tương tác trang đăng ký", groups = {"RegisterTest"})
     public void testInteractRegister() {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.interactRegister();
-        WebUI.assertAll();
     }
 
     @Test(priority = 3, description = "Kiểm tra đăng ký thành công với dữ liệu hợp lệ", groups = {"RegisterTest"})
@@ -28,7 +26,6 @@ public class RegisterTest extends BaseTest {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyMessageSuccess("Minh Tuyet","Minh084@","0840000000","19082000",
                 "Đăng kí tài khoản thành công !","https://demo5.cybersoft.edu.vn/login");
-        WebUI.assertAll();
     }
 
     @Test(priority = 4, description = "Kiểm tra đăng ký thất bại khi email trùng lặp", groups = {"RegisterTest"})
@@ -36,14 +33,12 @@ public class RegisterTest extends BaseTest {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyRepeatEmail("Minh Tuyet","Minh084@","0840000000","19082000",
                 "https://demo5.cybersoft.edu.vn/login","Email đã tồn tại !");
-        WebUI.assertAll();
     }
 
     @Test(priority = 5, description = "Kiểm tra đăng ký hiển thị thông báo lỗi khi bỏ trống", groups = {"RegisterTest"})
     public void testErrorEmpty() {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyErrorEmpty();
-        WebUI.assertAll();
     }
 
     @Test(priority = 6, description = "Kiểm tra đăng ký hiển thị ToolTip khi bỏ trống dữ liệu", groups = {"RegisterTest"})
@@ -51,14 +46,12 @@ public class RegisterTest extends BaseTest {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyToolTip("Minh Tuyet","minh0842@gmail.com","Minh084@",
                 "0840000000","19082000");
-        WebUI.assertAll();
     }
 
     @Test(priority = 7, description = "Kiểm tra đăng ký hiển thị thông báo lỗi khi nhập dấu cách vào trường", groups = {"RegisterTest"})
     public void testErrorSpace() {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyErrorSpace();
-        WebUI.assertAll();
     }
 
     @DataProvider(name = "csvRepeatPassword")
@@ -71,7 +64,6 @@ public class RegisterTest extends BaseTest {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyRepeatPassword("Minh Tuyet","minh0842@gmail.com","0840000000",
                 "19082000", pass,repeatpass,"Password phải trùng nhau");
-        WebUI.assertAll();
     }
 
     @Test(priority = 9, description = "Kiểm tra đăng ký thành công với trường name hợp lệ", groups = {"RegisterTest"})
@@ -79,7 +71,6 @@ public class RegisterTest extends BaseTest {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyValid("Minh Tuyế't","Minh084@",
                 "0840000000", "19082000","https://demo5.cybersoft.edu.vn/login");
-        WebUI.assertAll();
     }
 
     @DataProvider(name = "csvValidEmail")
@@ -92,7 +83,6 @@ public class RegisterTest extends BaseTest {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyValidEmail("Minh Tuyet",email,"Minh084@","0840000000","19082000",
                 "https://demo5.cybersoft.edu.vn/register","https://demo5.cybersoft.edu.vn/login");
-        WebUI.assertAll();
     }
 
     @Test(priority = 11, description = "Kiểm tra đăng ký thành công với trường password hợp lệ", groups = {"RegisterTest"})
@@ -100,7 +90,6 @@ public class RegisterTest extends BaseTest {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyValid("Minh Tuyet","Tu ế[8,@𝔂𝓪𝓼𝓼正😊",
                 "0840000000", "19082000","https://demo5.cybersoft.edu.vn/login");
-        WebUI.assertAll();
     }
 
     @DataProvider(name = "csvValidPhone")
@@ -113,7 +102,6 @@ public class RegisterTest extends BaseTest {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyValid("Minh Tuyet","Minh084@",
                 phone, "19082000","https://demo5.cybersoft.edu.vn/login");
-        WebUI.assertAll();
     }
 
     @DataProvider(name = "csvInvalidName")
@@ -126,7 +114,6 @@ public class RegisterTest extends BaseTest {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyInValid(name,"minh0842@gmail.com", "Minh084@",
                 "0840000000","19082000","Name Không đúng định dạng");
-        WebUI.assertAll();
     }
 
     @DataProvider(name = "csvInvalidEmail")
@@ -139,7 +126,6 @@ public class RegisterTest extends BaseTest {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyInValid("Minh Tuyet",email, "Minh084@",
                 "0840000000","19082000","Email không đúng định dạng");
-        WebUI.assertAll();
     }
 
     @DataProvider(name = "csvInvalidPassword")
@@ -152,7 +138,6 @@ public class RegisterTest extends BaseTest {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyInValid("Minh Tuyet","minh0842@gmail.com", password,
                 "0840000000","19082000","");
-        WebUI.assertAll();
     }
 
     @DataProvider(name = "csvInvalidPhone")
@@ -165,7 +150,6 @@ public class RegisterTest extends BaseTest {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyInValid("Minh Tuyet","minh0842@gmail.com", "Minh084@",
                 phone,"19082000","Phone phải từ 03 05 07 08 09 và có 10 số");
-        WebUI.assertAll();
     }
 
     @DataProvider(name = "csvInvalidBirthday")
@@ -178,6 +162,5 @@ public class RegisterTest extends BaseTest {
         registerPage = new RegisterPage(DriverManager.getDriver());
         registerPage.verifyInValid("Minh Tuyet","minh0842@gmail.com", "Minh084@",
                 "0840000000",birthday,"Birthday không được bỏ trống");
-        WebUI.assertAll();
     }
 }

@@ -24,6 +24,7 @@ public class BaseTest {
 
     @AfterMethod
     public void tearDown() {
+        WebUI.assertAll();
         DriverManager.quitDriver();
     }
 
