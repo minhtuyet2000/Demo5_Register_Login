@@ -96,7 +96,13 @@ public class LoginPage {
     }
     public void verifyErrorEmpty() {
         setLogin("        ","        ");
-        setLogin("","");
+        do {
+            driver.get("https://demo5.cybersoft.edu.vn/login");
+            WebUI.setText(inputEmail,"");
+            WebUI.setText(inputPassword,"");
+        } while (!driver.getCurrentUrl().equals("https://demo5.cybersoft.edu.vn/login"));
+        WebUI.clickElement(buttonLogin);
+        WebUI.scrollToPosition(0,0);
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
         for (int i = 0; i < WebUI.getWebElements(messageError).size(); i++) {

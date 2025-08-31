@@ -148,7 +148,19 @@ public class RegisterPage {
     }
     public void verifyErrorEmpty() {
         setRegister("        ","        ","        ","        ","        ");
-        setRegister("","","","","");
+        do {
+            driver.get("https://demo5.cybersoft.edu.vn/register");
+            WebUI.clickElement(radioFemale);
+            WebUI.clickElement(buttonAgree);
+            WebUI.setText(inputName,"");
+            WebUI.setText(inputEmail,"");
+            WebUI.setText(inputPassword,"");
+            WebUI.setText(inputRepeatPassword,"");
+            WebUI.setText(inputPhone,"");
+            WebUI.setText(inputBirthday,"");
+        } while (!driver.getCurrentUrl().equals("https://demo5.cybersoft.edu.vn/register"));
+        WebUI.clickElement(buttonSubmit);
+        WebUI.scrollToPosition(0,0);
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
         for (int i = 0; i < WebUI.getWebElements(messageError).size(); i++) {
