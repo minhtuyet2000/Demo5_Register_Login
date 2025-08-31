@@ -95,6 +95,7 @@ public class LoginPage {
         WebUI.assertEquals(WebUI.getURL(),urlProfile,"Login điều hướng đến trang profile");
     }
     public void verifyErrorEmpty() {
+        setLogin("        ","        ");
         setLogin("","");
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
