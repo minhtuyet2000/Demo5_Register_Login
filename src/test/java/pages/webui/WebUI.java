@@ -108,24 +108,28 @@ public class WebUI {
         }
         logConsole("Set text: " + value + " on element -" + element.getText() + " " + by);
         try {
-            JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-            js.executeScript("arguments[0].scrollIntoView(true);", element);
             element.clear();
             element.sendKeys(value);
-        } catch (Exception e) {
-            logConsole("Set text by js: " + value + " on element -" + element.getText() + " " + by);
-            try {
+        } catch (Exception ex) {
+            try{
                 JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-                js.executeScript("arguments[0].value = '" + value + "';", element);
-                element.sendKeys("tester");
-            } catch (Exception ejs) {
-                logConsole("❌ Không thể set text. Element - " + by);
-                String message = ejs.getMessage();
-                if (message.length() > 300) {
-                    message = message.substring(0, 300) + "...";
+                js.executeScript("arguments[0].scrollIntoView(true);", element);
+                element.clear();
+                element.sendKeys(value);
+            } catch (Exception e) {
+                logConsole("Set text by js: " + value + " on element -" + element.getText() + " " + by);
+                try {
+                    JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+                    js.executeScript("arguments[0].value = '" + value + "';", element);
+                    element.sendKeys("tester");
+                } catch (Exception ejs) {
+                    logConsole("❌ Không thể set text. Element - " + by);
+                    String message = ejs.getMessage();
+                    if (message.length() > 300) {
+                        message = message.substring(0, 300) + "...";
+                    }
+                    logConsole("❌ Lý do: " + message);
                 }
-                logConsole("❌ Lý do: " + message);
-
             }
         }
     }
@@ -137,24 +141,30 @@ public class WebUI {
         logConsole("Click element -" + element.getText() + " " + by);
         try {
             element.click();
-        } catch (Exception e) {
-            logConsole("Click element by action-" + element.getText() + " " + by);
-            try {
-                Actions actions = new Actions(DriverManager.getDriver());
-                actions.moveToElement(element).click().build().perform();
-            } catch (Exception ex) {
-                logConsole("Click element by js-" + element.getText() + " " + by);
+        } catch (Exception e2) {
+            try{
+                JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+                js.executeScript("arguments[0].scrollIntoView(true);", element);
+                element.click();
+            } catch (Exception e) {
+                logConsole("Click element by action-" + element.getText() + " " + by);
                 try {
-                    JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-                    js.executeScript("arguments[0].scrollIntoView(true);", element);
-                    js.executeScript("arguments[0].click();", element);
-                } catch (Exception ejs) {
-                    logConsole("❌ Không thể click. Element - " + by);
-                    String message = ejs.getMessage();
-                    if (message.length() > 300) {
-                        message = message.substring(0, 300) + "...";
+                    Actions actions = new Actions(DriverManager.getDriver());
+                    actions.moveToElement(element).click().build().perform();
+                } catch (Exception ex) {
+                    logConsole("Click element by js-" + element.getText() + " " + by);
+                    try {
+                        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+                        js.executeScript("arguments[0].scrollIntoView(true);", element);
+                        js.executeScript("arguments[0].click();", element);
+                    } catch (Exception ejs) {
+                        logConsole("❌ Không thể click. Element - " + by);
+                        String message = ejs.getMessage();
+                        if (message.length() > 300) {
+                            message = message.substring(0, 300) + "...";
+                        }
+                        logConsole("❌ Lý do: " + message);
                     }
-                    logConsole("❌ Lý do: " + message);
                 }
             }
         }
