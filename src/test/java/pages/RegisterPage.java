@@ -113,12 +113,14 @@ public class RegisterPage {
         WebUI.assertEquals(WebUI.getAttributeText(inputRepeatPassword,"type"),"text","RepeatPassword hiển thị");
         WebUI.scrollToPosition(0,0);
         WebUI.clickElement(eyePassword);
+        WebUI.scrollToPosition(0,0);
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"password","Password được ẩn đi");
         WebUI.assertEquals(WebUI.getAttributeText(inputRepeatPassword,"type"),"password","RepeatPassword được ẩn đi");
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
         WebUI.scrollToPosition(0,0);
         WebUI.clickElement(radioMale);
+        WebUI.scrollToPosition(0,0);
         String shot2 = WebUI.captureScreenshot();
         test.log(Status.INFO, "📸 Radio Male or Female")
                 .addScreenCaptureFromPath(shot1,"Verify Female is selected – Male is not selected")

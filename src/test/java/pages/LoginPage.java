@@ -70,6 +70,7 @@ public class LoginPage {
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"text","Password hiển thị");
         WebUI.scrollToPosition(0,0);
         WebUI.clickElement(eyePassword);
+        WebUI.scrollToPosition(0,0);
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"password","Password được ẩn đi");
     }
     public void verifyByEnterKey(String email, String password, String messageLogin, String urlProfile) {
