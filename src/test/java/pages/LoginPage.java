@@ -68,6 +68,7 @@ public class LoginPage {
         String longText = "A".repeat(100);
         setLogin(longText,longText);
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"text","Password hiển thị");
+        WebUI.scrollToPosition(0,0);
         WebUI.clickElement(eyePassword);
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"password","Password được ẩn đi");
     }

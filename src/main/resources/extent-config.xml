@@ -9,7 +9,80 @@
             .test-item.active {
             background-color: #cce5ff !important;
             border-left: 5px solid #007bff !important;
+            border-radius: 6px;
+            color: #fff !important;
             }
-        </css>
+
+            .test-item.red-mark {
+            background-color: #ff8095 !important;
+            border-left: 5px solid #e63946 !important;
+            border-radius: 6px;
+            color: #fff !important;
+            }
+
+            .mark-red-btn {
+            background-color: #ff2b4d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-size: 11px;
+            margin-left: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            }
+            .mark-red-btn:hover {
+            background-color: #b52a37;
+            }
+
+            .event-row.active-log td:last-child {
+            background-color: #cce5ff !important;
+            font-weight: bold;
+            border-radius: 4px;
+            }
+            </css>
+        <js>
+            document.querySelectorAll('.test-item').forEach(item => {
+            // tạo nút Mark Red
+            let btn = document.createElement('button');
+            btn.innerText = "Mark Red";
+            btn.classList.add("mark-red-btn");
+
+            // sự kiện click
+            btn.onclick = (e) => {
+            e.stopPropagation();
+            if (item.classList.contains("red-mark")) {
+            item.classList.remove("red-mark");
+            } else {
+            item.classList.add("red-mark");
+            }
+            };
+
+            // chèn nút vào test-item
+            let title = item.querySelector('.test-detail');
+            if (title) {
+            title.appendChild(btn);
+            } else {
+            item.appendChild(btn);
+            }
+            });
+
+            document.addEventListener("DOMContentLoaded", function() {
+            // Event delegation: lắng nghe click từ document
+            document.addEventListener("click", function(e) {
+            let row = e.target.closest(".event-row");
+            if (row) {
+            // Xóa active trong bảng chứa row đó
+            let parentTable = row.closest("table");
+            if (parentTable) {
+            parentTable.querySelectorAll(".event-row")
+            .forEach(r => r.classList.remove("active-log"));
+            }
+            // Thêm active vào row được click
+            row.classList.add("active-log");
+            }
+            });
+            });
+        </js>
     </configuration>
 </extentreports>
