@@ -28,7 +28,7 @@ public class LoginTest extends BaseTest {
     @Test(priority = 3, description = "Kiểm tra đăng nhập thành công bằng phím 'enter'", groups = {"LoginTest"})
     public void testByEnterKey() {
         loginPage = new LoginPage(DriverManager.getDriver());
-        loginPage.verifyByEnterKey("minh123%@gmail.com"," Tyt @12 ","Đăng nhập tài khoản thành công !","https://demo5.cybersoft.edu.vn/profile");
+        loginPage.verifyByEnterKey("hinh123%@gmail.com"," Tyt @12 ","Đăng nhập tài khoản thành công !","https://demo5.cybersoft.edu.vn/profile");
         WebUI.assertAll();
     }
 
@@ -70,20 +70,22 @@ public class LoginTest extends BaseTest {
 
     @DataProvider(name = "csvValidEmail")
     public Object[][] getValidEmail() {
-        return CSVReaderUtil.readCSV("src/main/java/testdata/data_Login/verifyValidEmail");
+        return CSVReaderUtil.readCSV("src/main/java/testdata/data_Register/verifyValidEmail");
     }
     @Test(priority = 9,dataProvider = "csvValidEmail",
             description = "Kiểm tra đăng nhập thành công với trường email hợp lệ", groups = {"LoginTest"})
-    public void testValidEmail(String email, String password) {
+    public void testValidEmail(String email) {
+        //registerTest.testValidEmail
         loginPage = new LoginPage(DriverManager.getDriver());
-        loginPage.verifyValid(email,password,"https://demo5.cybersoft.edu.vn/profile");
+        loginPage.verifyValid(email,"Minh084@","https://demo5.cybersoft.edu.vn/profile");
         WebUI.assertAll();
     }
 
     @Test(priority = 10, description = "Kiểm tra đăng nhập thành công với trường password hợp lệ", groups = {"LoginTest"})
     public void testValidPassword() {
+        //registerTest.testValidPassword
         loginPage = new LoginPage(DriverManager.getDriver());
-        loginPage.verifyValid("GWctlI28312321@gmail.com","Tu ế[8,@𝔂𝓪𝓼𝓼正😊","https://demo5.cybersoft.edu.vn/profile");
+        loginPage.verifyValid("bfnEzg79089476@gmail.com","Tu ế[8,@𝔂𝓪𝓼𝓼正😊","https://demo5.cybersoft.edu.vn/profile");
         WebUI.assertAll();
     }
 
