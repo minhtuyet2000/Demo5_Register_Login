@@ -85,7 +85,7 @@ public class LoginTest extends BaseTest {
     public void testValidPassword() {
         //registerTest.testValidPassword
         loginPage = new LoginPage(DriverManager.getDriver());
-        loginPage.verifyValid("bfnEzg79089476@gmail.com","Tu ế[8,@𝔂𝓪𝓼𝓼正😊","https://demo5.cybersoft.edu.vn/profile");
+        loginPage.verifyValid("CfnEzg79089476@gmail.com","Tu ế[8,@𝔂𝓪𝓼𝓼正😊","https://demo5.cybersoft.edu.vn/profile");
         WebUI.assertAll();
     }
 
