@@ -114,6 +114,8 @@ public class RegisterPage {
         WebUI.assertEquals(WebUI.getURL(),"https://demo5.cybersoft.edu.vn/login","I am already member điều hướng đến trang login");
         String longText = "A".repeat(200);
         setRegisterAndSubmit(longText,longText,longText,longText,longText);
+        ExtentTest test = ExtentTestManager.getTest();
+        String shot1 = WebUI.captureScreenshot();
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"text","Password hiển thị");
         WebUI.assertEquals(WebUI.getAttributeText(inputRepeatPassword,"type"),"text","RepeatPassword hiển thị");
         WebUI.scrollToPosition(0,0);
@@ -121,15 +123,15 @@ public class RegisterPage {
         WebUI.scrollToPosition(0,0);
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"password","Password được ẩn đi");
         WebUI.assertEquals(WebUI.getAttributeText(inputRepeatPassword,"type"),"password","RepeatPassword được ẩn đi");
-        ExtentTest test = ExtentTestManager.getTest();
-        String shot1 = WebUI.captureScreenshot();
+        String shot2 = WebUI.captureScreenshot();
         WebUI.scrollToPosition(0,0);
         WebUI.clickElement(radioMale);
         WebUI.scrollToPosition(0,0);
-        String shot2 = WebUI.captureScreenshot();
+        String shot3 = WebUI.captureScreenshot();
         test.log(Status.INFO, "📸 Radio Male or Female")
-                .addScreenCaptureFromPath(shot1,"Verify Female is selected – Male is not selected")
-                .addScreenCaptureFromPath(shot2,"Verify Male is selected – Female is not selected");
+                .addScreenCaptureFromPath(shot1,"Password hiển thị")
+                .addScreenCaptureFromPath(shot2,"Verify Female is selected – Male is not selected")
+                .addScreenCaptureFromPath(shot3,"Verify Male is selected – Female is not selected");
     }
     public void verifyMessageSuccess(String name, String password, String phone, String birthday,String messageSuccess, String urlLogin) {
         createNewEmailForLogin(name, password, phone, birthday);
@@ -142,7 +144,7 @@ public class RegisterPage {
     }
     public void verifyRepeatEmail(String name, String password, String phone, String birthday, String urlLogin, String messageRepeatEmail) {
         String emailLogin = createNewEmailForLogin(name, password, phone, birthday);
-        setRegisterAndSubmit(name.repeat(1),emailLogin,password.repeat(1),"0850000000","19092000");
+        setRegisterAndSubmit(name,emailLogin,password, phone, birthday);
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
         WebUI.sleep(1);
