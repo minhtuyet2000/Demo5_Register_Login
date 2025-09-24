@@ -78,10 +78,10 @@ public class WebUI {
         return message;
     }
     public static WebElement getWebElement(By by) {
+        waitForPageLoaded();
+        waitForElementVisible(by);
+        sleep(STEP_TIME);
         try {
-            waitForPageLoaded();
-            waitForElementVisible(by);
-            sleep(STEP_TIME);
             return DriverManager.getDriver().findElement(by);
         } catch (Throwable error) {
             String message = error.getMessage();
