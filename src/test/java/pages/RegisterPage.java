@@ -8,7 +8,6 @@ import pages.webui.WebUI;
 import scripts.utils.CSVReaderUtilForList;
 import utilities.ExtentTestManager;
 
-import javax.swing.*;
 import java.util.List;
 
 public class RegisterPage {
@@ -38,7 +37,13 @@ public class RegisterPage {
     private By message = By.xpath("//div[@role='alert']");
     private By messageError = By.xpath("//span[contains(@class,'danger')]");
 
-    public void setRegister(String name, String email, String password, String phone, String birthday) {
+    public String getEmailForLogin() {
+        return createNewEmailForLogin("Alexander","Alexander084@","0840000000","20022005");
+    }
+    public String getEmailForMalware() {
+        return createNewEmailForLogin("Malware","Malware084@","0840000000","20022005");
+    }
+    public void setRegisterAndSubmit(String name, String email, String password, String phone, String birthday) {
         do {
             driver.get("https://demo5.cybersoft.edu.vn/register");
             WebUI.setText(inputName,name);
@@ -54,13 +59,13 @@ public class RegisterPage {
         WebUI.clickElement(buttonSubmit);
         WebUI.scrollToPosition(0,0);
     }
-    public String setEmail(String name, String password, String phone, String birthday) {
+    public String createNewEmailForLogin(String name, String password, String phone, String birthday) {
         int count = 0;
         boolean isExisted;
         String email;
         do {
             String randomEmail = RandomStringUtils.randomAlphabetic(6)+RandomStringUtils.randomNumeric(8)+"@gmail.com";
-            setRegister(name,randomEmail,password,phone,birthday);
+            setRegisterAndSubmit(name,randomEmail,password,phone,birthday);
             email = randomEmail;
             isExisted = WebUI.getElementText(message).equals("Email đã tồn tại !");
             count++;
@@ -108,7 +113,7 @@ public class RegisterPage {
         WebUI.clickElement(buttonLogin);
         WebUI.assertEquals(WebUI.getURL(),"https://demo5.cybersoft.edu.vn/login","I am already member điều hướng đến trang login");
         String longText = "A".repeat(200);
-        setRegister(longText,longText,longText,longText,longText);
+        setRegisterAndSubmit(longText,longText,longText,longText,longText);
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"text","Password hiển thị");
         WebUI.assertEquals(WebUI.getAttributeText(inputRepeatPassword,"type"),"text","RepeatPassword hiển thị");
         WebUI.scrollToPosition(0,0);
@@ -127,7 +132,7 @@ public class RegisterPage {
                 .addScreenCaptureFromPath(shot2,"Verify Male is selected – Female is not selected");
     }
     public void verifyMessageSuccess(String name, String password, String phone, String birthday,String messageSuccess, String urlLogin) {
-        setEmail(name, password, phone, birthday);
+        createNewEmailForLogin(name, password, phone, birthday);
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
         WebUI.assertEquals(WebUI.getElementText(message),messageSuccess,messageSuccess);
@@ -136,8 +141,8 @@ public class RegisterPage {
                 .addScreenCaptureFromPath(shot1,"Message Success");
     }
     public void verifyRepeatEmail(String name, String password, String phone, String birthday, String urlLogin, String messageRepeatEmail) {
-        String emailLogin = setEmail(name, password, phone, birthday);
-        setRegister(name.repeat(1),emailLogin,password.repeat(1),"0850000000","19092000");
+        String emailLogin = createNewEmailForLogin(name, password, phone, birthday);
+        setRegisterAndSubmit(name.repeat(1),emailLogin,password.repeat(1),"0850000000","19092000");
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
         WebUI.sleep(1);
@@ -150,7 +155,7 @@ public class RegisterPage {
                 .addScreenCaptureFromPath(shot1,"Message Repeat Email");
     }
     public void verifyErrorEmpty() {
-        setRegister("        ","        ","        ","        ","        ");
+        setRegisterAndSubmit("        ","        ","        ","        ","        ");
         do {
             driver.get("https://demo5.cybersoft.edu.vn/register");
             WebUI.clickElement(radioFemale);
@@ -175,7 +180,7 @@ public class RegisterPage {
                 .addScreenCaptureFromPath(shot1,"Verify Error When All Fields Empty");
     }
     public void verifyErrorSpace() {
-        setRegister("        ","        ","        ","        ","        ");
+        setRegisterAndSubmit("        ","        ","        ","        ","        ");
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
         for (int i = 0; i < WebUI.getWebElements(messageError).size(); i++) {
@@ -257,11 +262,11 @@ public class RegisterPage {
         WebUI.assertEquals(WebUI.getElementText(messageError),error,error);
     }
     public void verifyValid(String name, String password, String phone, String birthday, String urlLogin) {
-        setEmail(name, password, phone, birthday);
+        createNewEmailForLogin(name, password, phone, birthday);
         WebUI.assertEquals(WebUI.getURL(),urlLogin,"Submit điều hướng đến trang login");
     }
     public void verifyValidEmail(String name,String email ,String password, String phone, String birthday, String urlRegister, String urlLogin) {
-        setRegister(name,email,password,phone,birthday);
+        setRegisterAndSubmit(name,email,password,phone,birthday);
         boolean isExisted = WebUI.getElementText(message).equals("Email đã tồn tại !");
         if (isExisted) {
             WebUI.assertEquals(WebUI.getURL(),urlRegister,"Email đã tồn tại !");
@@ -270,7 +275,7 @@ public class RegisterPage {
         }
     }
     public void verifyInValid(String name,String email ,String password, String phone, String birthday, String error) {
-        setRegister(name,email,password,phone,birthday);
+        setRegisterAndSubmit(name,email,password,phone,birthday);
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
         if (password.length()>32) {

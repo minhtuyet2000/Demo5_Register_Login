@@ -2,9 +2,7 @@ package pages;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import pages.webui.WebUI;
@@ -87,7 +85,7 @@ public class LoginPage {
                 .addScreenCaptureFromPath(shot1,"Message Success");
     }
     public void verifyValidName(String name, String password, String phone, String birthday,String urlProfile) {
-        String emailLogin = registerPage.setEmail(name, password, phone, birthday);
+        String emailLogin = registerPage.createNewEmailForLogin(name, password, phone, birthday);
         WebUI.logConsole("Submit điều hướng đến trang login");
         setLogin(emailLogin,password);
         WebUI.sleep(1);
