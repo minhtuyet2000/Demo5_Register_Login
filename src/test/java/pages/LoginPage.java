@@ -30,15 +30,48 @@ public class LoginPage {
     private By message = By.xpath("//div[@role='alert']");
     private By messageError = By.xpath("//span[contains(@class,'danger')]");
 
-    private void setLogin(String email, String password) {
+    private static String email;
+    private String password = "Alexander084@";
+
+    private String getEmail() {
+        if (email == null || !tryLogin(email, password)) {
+            email = registerPage.getEmailForLogin();
+        }
+        return email;
+    }
+
+    private boolean tryLogin(String email, String password) {
+        login(email,password);
+        if (driver.getCurrentUrl().equals("https://demo5.cybersoft.edu.vn/profile")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public void login(String email, String password) {
+        WebUI.logConsole(">>>>> Nhập dữ liệu đăng nhập <<<<<");
         do {
             driver.get("https://demo5.cybersoft.edu.vn/login");
-            WebUI.setText(inputEmail, email);
-            WebUI.setText(inputPassword, password);
-            WebUI.clickElement(eyePassword);
+            if (WebUI.getWebElement(inputEmail)!=null && WebUI.getWebElement(inputPassword)!=null) {
+                WebUI.setText(inputEmail, email);
+                WebUI.setText(inputPassword, password);
+                WebUI.clickElement(eyePassword);
+            }
         } while (!driver.getCurrentUrl().equals("https://demo5.cybersoft.edu.vn/login"));
         WebUI.clickElement(buttonLogin);
         WebUI.scrollToPosition(0,0);
+        WebUI.sleep(1);
+    }
+    public ProfilePage profilePage() {
+        String email = getEmail();
+        if (!driver.getCurrentUrl().equals("https://demo5.cybersoft.edu.vn/profile")) {
+            login(email,password);
+        }
+        if (!WebUI.getWebElements(message).isEmpty()) {
+            WebUI.clickElement(message);
+        }
+        WebUI.sleep(1);
+        return new ProfilePage(driver);
     }
     public void displayLogin() {
         WebUI.openURL("https://demo5.cybersoft.edu.vn/");
@@ -64,12 +97,16 @@ public class LoginPage {
         WebUI.clickElement(buttonRegister);
         WebUI.assertEquals(WebUI.getURL(),"https://demo5.cybersoft.edu.vn/register","Register now ? có sự điều hướng");
         String longText = "A".repeat(100);
-        setLogin(longText,longText);
+        login(longText,longText);
+        ExtentTest test = ExtentTestManager.getTest();
+        String shot1 = WebUI.captureScreenshot();
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"text","Password hiển thị");
         WebUI.scrollToPosition(0,0);
         WebUI.clickElement(eyePassword);
         WebUI.scrollToPosition(0,0);
         WebUI.assertEquals(WebUI.getAttributeText(inputPassword,"type"),"password","Password được ẩn đi");
+        test.log(Status.INFO, "📸 Password hiển thị")
+                .addScreenCaptureFromPath(shot1,"Password hiển thị");
     }
     public void verifyByEnterKey(String email, String password, String messageLogin, String urlProfile) {
         WebUI.openURL("https://demo5.cybersoft.edu.vn/login");
@@ -87,16 +124,16 @@ public class LoginPage {
     public void verifyValidName(String name, String password, String phone, String birthday,String urlProfile) {
         String emailLogin = registerPage.createNewEmailForLogin(name, password, phone, birthday);
         WebUI.logConsole("Submit điều hướng đến trang login");
-        setLogin(emailLogin,password);
+        login(emailLogin,password);
         WebUI.sleep(1);
         WebUI.assertEquals(WebUI.getURL(),urlProfile,"Login điều hướng đến trang profile");
     }
     public void verifyValid(String email, String password, String urlProfile) {
-        setLogin(email,password);
+        login(email,password);
         WebUI.assertEquals(WebUI.getURL(),urlProfile,"Login điều hướng đến trang profile");
     }
     public void verifyErrorEmpty() {
-        setLogin("        ","        ");
+        login("        ","        ");
         do {
             driver.get("https://demo5.cybersoft.edu.vn/login");
             WebUI.setText(inputEmail,"");
@@ -135,7 +172,7 @@ public class LoginPage {
                 .addScreenCaptureFromPath(shot2,"Password");
     }
     public void verifyInvalid(String email, String password,String errorEmail,String errorPassword) {
-        setLogin(email,password);
+        login(email,password);
         ExtentTest test = ExtentTestManager.getTest();
         String shot1 = WebUI.captureScreenshot();
         if (errorEmail.equals("Email không đúng định dạng !") && errorPassword.equals("Pass từ 6 - 32 ký tự !")) {

@@ -109,7 +109,7 @@ public class LoginTest extends BaseTest {
             description = "Kiểm tra đăng nhập hiển thị thông báo lỗi với password không chính xác", groups = {"LoginTest"})
     public void testInvalidPassword(String password) {
         loginPage = new LoginPage(DriverManager.getDriver());
-        loginPage.verifyInvalid("minh123%@gmail.com",password+" ","Email hoặc mật khẩu không đúng !","Email hoặc mật khẩu không đúng !");
+        loginPage.verifyInvalid("hinh123%@gmail.com",password+" ","Email hoặc mật khẩu không đúng !","Email hoặc mật khẩu không đúng !");
         WebUI.assertAll();
     }
 
