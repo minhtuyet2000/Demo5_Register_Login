@@ -62,17 +62,20 @@ public class WebUI {
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         js.executeScript("window.scrollTo(" + X + "," + Y + ");");
     }
-    public static void toolTip(By by) {
+    public static String toolTip(By by) {
         WebElement element = getWebElement(by);
+        String message;
         if (element == null) {
             logConsole("Không tìm thấy phần tử để lấy tooltip: " + by);
+            message = "";
         } else {
             JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-            String message = (String) js.executeScript("return arguments[0].validationMessage;", getWebElement(by));
-            addActualText(message.trim());
+            message = (String) js.executeScript("return arguments[0].validationMessage;", getWebElement(by));
             logConsole("Validation message: " + message);
             js.executeScript("arguments[0].removeAttribute('required')", getWebElement(by));
         }
+        addActualText(message.trim());
+        return message;
     }
     public static WebElement getWebElement(By by) {
         try {
@@ -187,11 +190,15 @@ public class WebUI {
         }
     }
     public static String getAttributeText(By by, String attribute) {
-        WebElement element = getWebElement(by);
-        if (element == null) {
+        try {
+            WebElement element = getWebElement(by);
+            if (element == null) {
+                return "";
+            } else {
+                return element.getAttribute(attribute).trim();
+            }
+        } catch (Exception e) {
             return "";
-        } else {
-            return element.getAttribute(attribute).trim();
         }
     }
     public static void keysByAction(Keys action) {
@@ -244,6 +251,7 @@ public class WebUI {
     }
     public static void compareTwoLists(List<String> listA, List<String> listB) {
         int maxSize = Math.max(listA.size(), listB.size());
+        WebUI.logConsole(">>>>> ExpectedList And ActualList <<<<<");
         for (int i = 0; i < maxSize; i++) {
             String a = (i < listA.size()) ? listA.get(i) : "";
             String b = (i < listB.size()) ? listB.get(i) : "";
@@ -252,8 +260,8 @@ public class WebUI {
     }
     public static void compareActualText(List<String> expected) {
         List<String> actual = actualTexts.get();
-        WebUI.logConsole(">>>>> Kiểm Tra Nội Dung Hiển Thị <<<<<");
         compareTwoLists(actual,expected);
+        clearActualTexts();
     }
     private static ThreadLocal<List<String>> actualTexts = ThreadLocal.withInitial(ArrayList::new);
     public static void addActualText(String text) {
@@ -264,26 +272,26 @@ public class WebUI {
     }
     public static void assertDisplay(By by, int index) {
         boolean actual = false;
-        try {
-            WebElement element = getWebElements(by).get(index);
-            JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-            js.executeScript("arguments[0].scrollIntoView(true);", element);
-                if (element != null && element.isDisplayed()) {
-                    if (element.getText().equals("")) {
-                        logConsole("❌ Assert Failed. Element - " + by + " có giá trị rỗng");
-                        addActualText("");
-                    } else {
-                        actual = true;
-                        logConsole("✅ Assert Passed: " + element.getText());
-                        addActualText(element.getText().trim());
-                    }
-                } else {
-                    logConsole("❌ Assert Failed. Element - " + by + ".get(" + index + ") không hiển thị");
-                    addActualText("");
-                }
-        } catch (Exception e) {
+        List<WebElement> elements = getWebElements(by);
+        if (index < 0 || index >= elements.size()) {
             logConsole("❌ Assert Failed. Element - " + by + ".get(" + index + ") không tồn tại");
             addActualText("");
+        } else {
+            WebElement element = elements.get(index);
+            JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+            js.executeScript("arguments[0].scrollIntoView(true);", element);
+            if (element.isDisplayed()) {
+                if (element.getText().equals("")) {
+                    logConsole("❌ Assert Failed. Element - " + by + ".get(" + index + ") có giá trị rỗng");
+                    addActualText("");
+                } else {
+                    actual = true;
+                    addActualText(element.getText().trim());
+                }
+            } else {
+                logConsole("❌ Assert Failed. Element - " + by + ".get(" + index + ") không hiển thị");
+                addActualText("");
+            }
         }
         softAssert.get().assertTrue(actual);
     }
@@ -293,19 +301,18 @@ public class WebUI {
             WebElement element = getWebElement(by);
             JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
             js.executeScript("arguments[0].scrollIntoView(true);", element);
-                if (element != null && element.isDisplayed()) {
-                    if (element.getText().equals("")) {
-                        logConsole("❌ Assert Failed. Element - " + by + " có giá trị rỗng");
-                        addActualText("");
-                    } else {
-                        actual = true;
-                        logConsole("✅ Assert Passed: " + element.getText());
-                        addActualText(element.getText().trim());
-                    }
-                } else {
-                    logConsole("❌ Assert Failed. Element - " + by + " không hiển thị");
+            if (element != null && element.isDisplayed()) {
+                if (element.getText().equals("")) {
+                    logConsole("❌ Assert Failed. Element - " + by + " có giá trị rỗng");
                     addActualText("");
+                } else {
+                    actual = true;
+                    addActualText(element.getText().trim());
                 }
+            } else {
+                logConsole("❌ Assert Failed. Element - " + by + " không hiển thị");
+                addActualText("");
+            }
         } catch (Exception e) {
             logConsole("❌ Assert Failed. Element - " + by + " không tồn tại");
             addActualText("");
@@ -319,13 +326,18 @@ public class WebUI {
             JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
             js.executeScript("arguments[0].scrollIntoView(true);", element);
             if (element != null && element.isDisplayed()) {
-                if (element.getAttribute(attribute).equals("")) {
-                    logConsole("❌ Assert Failed. Element - " + by + " có giá trị rỗng");
+                try {
+                    String text = element.getAttribute(attribute);
+                    if (text.equals("")) {
+                        logConsole("❌ Assert Failed. Element - " + by + " có giá trị rỗng");
+                        addActualText("");
+                    } else {
+                        actual = true;
+                        addActualText(element.getAttribute(attribute).trim());
+                    }
+                } catch (Exception e) {
+                    logConsole("❌ Assert Failed. Element - " + by + " không tìm thấy thuộc tính");
                     addActualText("");
-                } else {
-                    actual = true;
-                    logConsole("✅ Assert Passed: " + element.getAttribute(attribute));
-                    addActualText(element.getAttribute(attribute).trim());
                 }
             } else {
                 logConsole("❌ Assert Failed. Element - " + by + " không hiển thị");
