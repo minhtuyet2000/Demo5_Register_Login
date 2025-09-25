@@ -251,7 +251,7 @@ public class WebUI {
     }
     public static void compareTwoLists(List<String> listA, List<String> listB) {
         int maxSize = Math.max(listA.size(), listB.size());
-        WebUI.logConsole(">>>>> ExpectedList And ActualList <<<<<");
+        logConsole(">>>>> ExpectedList And ActualList <<<<<");
         for (int i = 0; i < maxSize; i++) {
             String a = (i < listA.size()) ? listA.get(i) : "";
             String b = (i < listB.size()) ? listB.get(i) : "";
